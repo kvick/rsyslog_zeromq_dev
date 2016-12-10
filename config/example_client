@@ -1,0 +1,13 @@
+#   ****  Generated on 2016-06-07 12:12:11 by CZMQ  ****
+#   ZeroMQ CURVE Public Certificate
+#   Exchange securely, or use a secure mechanism to verify the contents
+#   of this file after exchange. Store public certificates in your home
+#   directory, in the .curve subdirectory.
+
+metadata
+    name = "Rsyslog Example Client Cert"
+    version = "1"
+    email = "test@example.com"
+    organization = "Rsyslog"
+curve
+    public-key = "6-N@s:bFa*5Kc:pE<CWut#h#Bo8@^#i}T&H86>BU"
