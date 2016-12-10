@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER taotetek@gmail.com
-ARG rsyslog_repo=git@github.com:rsyslog/rsyslog.github
+ARG rsyslog_repo=https://github.com/rsyslog/rsyslog
 ENV rsyslog_repo=$rsyslog_repo
 RUN apt-get remove rsyslog -y \
 && apt-get update \
@@ -35,4 +35,4 @@ ADD config/example_server /etc/curve.d/example_server
 ADD config/example_server_secret /etc/curve.d/example_server_secret
 ADD config/example_client /etc/curve.d/example_client
 ADD config/rsyslog.conf /etc/rsyslog.conf
-CMD /usr/local/sbin/rsyslogd -dn -i /var/run/rsyslogd.pid -f /etc/rsyslog.conf
+CMD /usr/sbin/rsyslogd -dn -i /var/run/rsyslogd.pid -f /etc/rsyslog.conf
