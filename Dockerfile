@@ -1,5 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER taotetek@gmail.com
+ARG rsyslog_repo=git@github.com:rsyslog/rsyslog.github
+ENV rsyslog_repo=$rsyslog_repo
 RUN apt-get remove rsyslog -y \
 && apt-get update \
 && apt-get upgrade -y \
@@ -24,7 +26,7 @@ RUN apt-get remove rsyslog -y \
 && wget http://www.liblognorm.com/files/download/liblognorm-2.0.2.tar.gz \
 && tar zxvf liblognorm-2.0.2.tar.gz \
 && cd liblognorm-2.0.2; ./configure; make -j8 install; ldconfig; cd .. \
-&& git clone $RSYSLOG_REPO \
+&& git clone $rsyslog_repo \
 && cd rsyslog \
 && ./autogen.sh --enable-impstats --enable-pmlastmsg --enable-omprog --enable-mmjsonparse --enable-imtcp --enable-mmnormalize --enable-mmfields --enable-mmsequence --enable-gnutls --enable-imczmq --enable-omczmq --enable-uuid;  make; make install; cd .. \
 && apt-get -y autoremove \
