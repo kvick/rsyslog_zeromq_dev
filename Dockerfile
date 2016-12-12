@@ -1,11 +1,10 @@
 FROM ubuntu:14.04
 MAINTAINER taotetek@gmail.com
-ARG rsyslog_repo=https://github.com/rsyslog/rsyslog
-ENV rsyslog_repo=$rsyslog_repo
+ADD rsyslog /usr/local/src/rsyslog
 RUN apt-get remove rsyslog -y \
 && apt-get update \
 && apt-get upgrade -y \
-&& apt-get install -y --no-install-recommends wget ca-certificates zlib1g-dev uuid-dev libgcrypt11-dev pkg-config python-docutils libgnutls-dev byacc flex libcurl4-gnutls-dev git libtool build-essential autoconf automake \
+&& apt-get install -y --no-install-recommends gawk wget ca-certificates zlib1g-dev uuid-dev libgcrypt11-dev pkg-config python-docutils libgnutls-dev byacc flex libcurl4-gnutls-dev git libtool build-essential autoconf automake \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && wget https://download.libsodium.org/libsodium/releases/libsodium-1.0.11.tar.gz \
@@ -26,8 +25,8 @@ RUN apt-get remove rsyslog -y \
 && wget http://www.liblognorm.com/files/download/liblognorm-2.0.2.tar.gz \
 && tar zxvf liblognorm-2.0.2.tar.gz \
 && cd liblognorm-2.0.2; ./configure; make -j8 install; ldconfig; cd .. \
-&& git clone $rsyslog_repo \
-&& cd rsyslog \
+&& cd /usr/local/src/rsyslog \
+&& make distclean \
 && ./autogen.sh --enable-impstats --enable-pmlastmsg --enable-omprog --enable-mmjsonparse --enable-imtcp --enable-mmnormalize --enable-mmfields --enable-mmsequence --enable-gnutls --enable-imczmq --enable-omczmq --enable-uuid;  make; make install; cd .. \
 && apt-get -y autoremove \
 && mkdir /etc/curve.d
